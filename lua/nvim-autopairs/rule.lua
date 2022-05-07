@@ -124,10 +124,13 @@ function Rule:get_end_pair_length(opts)
     if self.end_pair_length then
         return self.end_pair_length
     end
+    local s = nil
     if type(opts) == 'string' then
-        return #opts
+        s = opts
+    else
+        s = self.get_end_pair(opts)
     end
-    return #self.get_end_pair(opts)
+    return #s:gsub('<[^>]*>', '')
 end
 
 function Rule:replace_endpair(value, check_pair)
